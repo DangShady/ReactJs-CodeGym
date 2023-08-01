@@ -12,14 +12,15 @@
     <!-- Việc tải lại trang khi ta bấm submit là hành động mặc định của trình duyệt -->
     <div style="color: red;" id="erorr"></div>
     <form onsubmit="submitHandle(this,event)">
-        <input name="full_name" placeholder="Full name"><br>
+        <input name="full_name" id="nameInput" placeholder="Full name" pattern="^[_a-z0-9]{6,}$"><br>
         <input name="age" placeholder="Age"><br>
         <input name="email" id="emailInput" placeholder="Email"><br>
         <button type="submit">Submit</button>
     </form>
     <script>
          let erorrDiv = document.querySelector("#erorr")
-         let emailInput = document.querySelector("#emailInput")
+         let emailInput = document.querySelector("#emailInput");
+         let nameInput = document.querySelector("#nameInput")
         function submitHandle(form, e) {
             let count = "";
             e.preventDefault() // câu lệnh này sẽ ngăn chặn sự kiện mặc định trên trình duyệt
@@ -42,6 +43,15 @@
                         continue
                     }
                 }
+
+                if (input.name === "full_name") {
+                    const name = nameInput.value;
+                    if (!isNameValid(name)) {
+                        count += "Lỗi full name không được rỗng"
+                        continue
+                    }
+                }
+
                 if (input.name === "email") {
                     if (input.value === "") {
                         count += "Lỗi email không được rỗng"
@@ -66,9 +76,14 @@
             const regExp = /^[A-Za-z0-9]+[A-Za-z0-9]*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)$/; // Biểu thức chính quy kiểm tra email
             return regExp.test(email);
         }
+
+        function isNameValid(name){
+            const regExp = /^[_a-z0-9]{6,}$/; // Biểu thức chính quy kiểm tra email
+            return regExp.test(name);
+        }
     }
 
-    </script>
+    </script>   
 </body>
  
 </html>
