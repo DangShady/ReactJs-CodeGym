@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- Khi ta bấm submit trong 1 form, trang sẽ được tải lại -->
+    <!-- Việc tải lại trang khi ta bấm submit là hành động mặc định của trình duyệt -->
+    <div style="color: red;" id="erorr"></div>
+    <form onsubmit="submitHandle(this,event)">
+        <input name="full_name" placeholder="Full name"><br>
+        <input name="age" placeholder="Age"><br>
+        <input name="email" id="emailInput" placeholder="Email"><br>
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+         let erorrDiv = document.querySelector("#erorr")
+         let emailInput = document.querySelector("#emailInput")
+        function submitHandle(form, e) {
+            let count = "";
+            e.preventDefault() // câu lệnh này sẽ ngăn chặn sự kiện mặc định trên trình duyệt
+            /// tức không cho trang tải lại nữa
+            const inputAll = form.querySelectorAll("input")
+            for (const input of inputAll) {
+                if (input.name === "age") {
+                    if (input.value === "") {
+                        count += "Lỗi tuổi không được rỗng"
+                        continue
+                    }
+                    if (+input.value < 0) {
+                        count += "Lỗi tuổi không được âm"
+                        continue
+                    }
+                }
+                if (input.name === "full_name") {
+                    if (input.value === "") {
+                        count += "Lỗi full name không được rỗng"
+                        continue
+                    }
+                }
+                if (input.name === "email") {
+                    if (input.value === "") {
+                        count += "Lỗi email không được rỗng"
+                        continue
+                    }
+                }
+
+                if (input.name === "email") {
+                    const email = emailInput.value;
+                    if (!isEmailValid(email)) {
+                        count += "email không hợp le"
+                       continue
+                    }
+                }
+            }
+            erorrDiv.innerHTML = count
+  if(!count)
+
+            console.log("Submit dữ liệu")
+            
+            function isEmailValid(email) {
+            const regExp = /^[A-Za-z0-9]+[A-Za-z0-9]*@[A-Za-z0-9]+(\.[A-Za-z0-9]+)$/; // Biểu thức chính quy kiểm tra email
+            return regExp.test(email);
+        }
+    }
+
+    </script>
+</body>
+ 
+</html>

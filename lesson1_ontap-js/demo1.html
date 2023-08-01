@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    let a = prompt("nhập vào 1 số : ")
+
+    if(a <= 1){
+      alert("đây không phải số nguyên tố")
+    }
+
+    for(let i = 2 ; i <= Math.sqrt(a) ; i++){
+      if(a % i === 0){
+        alert("không phải số nguyên tố")
+      }
+    }
+    alert("đây là số nguyên tố")
+  </script>
+</body>
+</html>
