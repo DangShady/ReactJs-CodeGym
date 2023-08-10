@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+</head>
+<style>
+    
+</style>
+<body>
+
+    <input type="text" id="gif-cover">
+    <button type="submit">Search Giphy!</button>
+    <button>Remove mages</button>
+    <div>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        const result = document.querySelector('#result')
+
+        const api = "e307fa680957f237693d456629460223"
+
+        const APICaller = axios.create({
+            baseURL: "api.openweathermap.org/data/2.5/forecast?id=524901&appid=",
+            headers: { 
+                'Content-Type': 'application/json',
+            },
+            params: {
+                api: api,
+            }
+        });
+
+        APICaller.get()
+        .then(res=>{
+            console.log(res)
+        })
+
+    </script>
+</body>
+</html>

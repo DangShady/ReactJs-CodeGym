@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axios</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+    <form>
+        <div class="row">
+            <div class="col">
+                <input class="form-control" placeholder="Name"/>
+            </div>
+            <div class="col">
+                <input class="form-control" placeholder="Author"/>
+            </div>
+            <div class="col">
+                <button onsubmit="submitBook(this,event)" class="btn btn-info" onclick="clickme()">Create</button>
+            </div>
+        </div>
+    </form>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Author</th>
+            </tr>
+        </thead>
+        <tbody id="booklist">
+
+        </tbody>
+    </table>
+    <script>
+        const booklist = document.querySelector("#booklist")
+const token = "eyJuYW1lIjoiXHUwMTEwXHUxZWI2TkcgRFVZIFx1MDExMFx1MWVlOEMgKFJKMjMwN1IxKSJ9:LNpnRs4Vh41h94PnuTdQFW_1TyVAMwa3dqKAgAhDZck"
+        const APICaller = axios.create({
+            baseURL: "http://api.iamdien.com:8000/book/",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            params: {
+                token: token,
+            }
+        })
+
+        APICaller.get()
+        .then(res=>{
+            console.log(res)
+            const data = res.data.data /// data là 1 array
+            for (const book of data) {
+                const newTr = document.createElement("tr")
+                newTr.innerHTML = `
+                    <td>${book.id}</td>
+                    <td>${book.name}</td>
+                    <td>${book.author}</td>
+                `
+                booklist.append(newTr)
+            }
+
+            //// tạo Element bằng createElement
+            //// append vào tbody
+        })
+
+        function clickme() {
+            APICaller.post("",{"params":{
+                name:"Nửa đời trước của tôi",
+                author:"Phổ Nghi",
+                image:""
+            }})
+            .then(res=>{
+                console.log(res)
+            })
+        }
+    
+        function submitBook(e) {
+            e.preventDefault()
+        }
+        /// get - query dữ liệu
+        /// post - tạo dữ liệu
+        /// put - chỉnh sửa dữ liệu
+        /// patch - thay thế dữ liệu
+        /// delete - xoá dữ liệu
+    </script>
+</body>
+</html>

@@ -6,6 +6,60 @@
     <title>Document</title>
 </head>
 <body>
+    <div id="erorr"></div>
+<form action="" onsubmit="check(this, event)">
+    <input type="text" id="nameInput" name="full_name"> <br>
+    <input type="text" id="age" name="age"> <br>
+    <input type="text" id="emailInput" name="email"> <br>
+    <button type="submit" onclick="check()">submit</button>
+</form>
+<script>
+    let erorr = document.querySelector("#erorr");
+    let nameInput = document.querySelector("#nameInput");
+    let emailInput = document.querySelector("#emailInput");
 
+    function check(form , e){
+  let count = "";
+        e.preventDefault();
+
+        const inputAll = form.querySelectorAll("input");
+        for(const input of inputAll){
+            if(input.name === "full_name"){
+                if(input.value === ""){
+                    count += "fullname không được để trống";
+                    continue
+                }
+            }
+            if(input.name === "age"){
+                if(input.value === ""){
+                    count += "tuổi không được để trống";
+                    continue
+                }
+            }
+            if(input.name === "email"){
+                const email = emailInput.value
+                if(input.value === ""){
+                    count += "email không được để trống";
+                    continue
+                }else if(!inEmailValid(email)){
+                    count += "email không hợp lệ";
+                    continue
+                }
+            }
+            if(input.name === "full_name"){
+                if(input.value === ""){
+                    count += "fullname không được để trống";
+                    continue
+                }
+            }
+        }
+        erorr.innerHTML = count
+    }
+
+    function inEmailValid(email){
+       const regExp = /^[A-z0-9]+@[A-z0-9]+\.[A-z0-9]+)$/
+       return regExp.test(email);
+    }
+</script>
 </body>
-</html>
+</html> 

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+</head>
+<body>
+    <button onclick="clickme()">click Me</button>
+    <script>
+        const token = "eyJuYW1lIjoiXHUwMTEwXHUxZWI2TkcgRFVZIFx1MDExMFx1MWVlOEMgKFJKMjMwN1IxKSJ9:LNpnRs4Vh41h94PnuTdQFW_1TyVAMwa3dqKAgAhDZck"
+        const APICaller = axios.create({
+            baseURL: "http://api.iamdien.com:8000/book/",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            params: {
+                token: token,
+            }
+        });
+
+        APICaller.get()
+        .then(res=>{
+            console.log(res)
+        })
+
+        function clickme(){
+            APICaller.post("", { "params": {
+          name: "Đắc nhân tâm",
+          author:"Hữu Đảng",
+          image: ""
+            }
+            })
+           .then(res=>{
+            console.log(res)
+           })
+        }
+    </script>
+</body>
+</html>
